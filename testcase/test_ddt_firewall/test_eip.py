@@ -39,4 +39,3 @@ class TestEip(BaseCase):
 
         r = self.request(method="post", url=url, json=data, headers=header)
         print(r.json())
-pass
