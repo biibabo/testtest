@@ -8,26 +8,5 @@
               "Region": "cn-bj2"
               },
     "expect_code": 0
-          },
-  "eip2": {
-    "EIPInstance": {"Bandwidth": 1,
-            "ChargeType": "Dynamic",
-            "Name": "EIP2",
-            "OperatorName": "Bgp",
-            "PayMode": "Traffic",
-            "Region": "cn-bj2"
-            },
-    "expect_code": 0
-        },
-  "eip3": {
-    "EIPInstance": {"Bandwidth": 1,
-            "ChargeType": "Dynamic",
-            "Name": "EIP3",
-            "OperatorName": "International",
-            "PayMode": "Traffic",
-            "Region": "ge-fra"
-            },
-    "expect_code": 0
-        }
-
+          }
 }
