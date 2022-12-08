@@ -1,0 +1,19 @@
+config:
+  AccountId: admin
+  Password: 039b091873fbc2f68abe7723b4ac018d
+  Host: cmp-fe.ucloud.cn
+  Origin: https://cmp-fe.ucloud.cn
+  Referer: https://cmp-fe.ucloud.cn/cloud-fe/resource
+  platform_id:
+    ucloud: 1
+    openstack: 2
+    tencent: 6
+    aliyun: 7
+    vmwawre: 9
+    ucloudstack: 11
+    huawei: 12
+    aws: 13
+    kubernetes: 16
+    fusioncompute: 17
+    azure: 19
+

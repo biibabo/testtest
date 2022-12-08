@@ -1,0 +1,21 @@
+-
+  Action_name01: Createoss01
+  request:
+    param_type: json
+    method: post
+    url: http://cmp-fe.prj-cmp-test.svc.c1.u4/api/gateway?Action=CreateOSS
+    headers:
+      Cookie: cmp-gateway=s%3A5IM-Ca0cTPQkCvC_FLokidm5fqkU-O7s.ecBVohWxJVneRvi9qcWWWgNTy%2BXOoxAOc%2Bv%2FnAmRs1E
+      Referer: http://cmp-fe.prj-cmp-test.svc.c1.u4/cloud-fe/resource/storage/object
+      Origin: http://cmp-fe.prj-cmp-test.svc.c1.u4
+    data:
+      AccessControl: "public-read"
+      AccountId: 190
+      Logging: 1
+      Name: "parametrize10"
+      Platform: "aliyun"
+      RSetId: 294
+      RegionEn: "cn-shanghai"
+      ServerSideEncryptionRule: "None"
+      StorageClass: "Archive"
+      Versioning: 1

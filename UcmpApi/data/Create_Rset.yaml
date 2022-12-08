@@ -1,0 +1,29 @@
+-
+  Action_name01: CreateRset01
+  request:
+      param_type: json
+      method: post
+      url: http://10.173.52.167:9091?Action=CreateRSet
+      headers:
+        Content-Type: application/json;charset=UTF-8
+      data:
+        RSetName: test01
+        OrgId: 1
+
+-
+  Action_name02: CreateRset02
+  request:
+      param_type: json
+      method: post
+      url: http://10.173.52.167:9091?Action=CreateRSet
+      headers:
+        Content-Type: application/json;charset=UTF-8
+      data:
+        RSetName: test02
+        OrgId: 1
+        Description: "测试创建资源集"
+        VMMax: 10
+        CPUTotalMax: 100
+        DiskCapMax: 200
+        MemCapMax: 300
+        MoneyAmountMax: 1000

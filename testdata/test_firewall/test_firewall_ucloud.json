@@ -1,0 +1,62 @@
+{
+  "rule1": {
+    "name": "firewallall",
+    "Rules": [
+      {
+        "RuleAction": "ACCEPT",
+        "Priority": "HIGH",
+        "Protocol": "TCP",
+        "DstPort": "1",
+        "SrcIP": "0.0.0.0/0"
+      },
+      {
+        "RuleAction": "ACCEPT",
+        "Priority": "MEDIUM",
+        "Protocol": "UDP",
+        "DstPort": "1",
+        "SrcIP": "0.0.0.0/0"
+      },
+      {
+        "RuleAction": "ACCEPT",
+        "Priority": "LOW",
+        "Protocol": "GRE",
+        "DstPort": "2",
+        "SrcIP": "0.0.0.0/0"
+      },
+      {
+        "RuleAction": "DROP",
+        "Priority": "HIGH",
+        "Protocol": "ICMP",
+        "DstPort": "",
+        "SrcIP": "0.0.0.0/0"
+      }
+    ],
+    "expect_code": 0
+  },
+  "rule2": {
+    "name": "firewallone",
+    "Rules": [
+      {
+        "RuleAction": "ACCEPT",
+        "Priority": "HIGH",
+        "Protocol": "TCP",
+        "DstPort": "1",
+        "SrcIP": "0.0.0.0/0"
+      }
+    ],
+    "expect_code": 0
+  },
+  "rule3": {
+    "name": "firewall2",
+    "Rules": [
+      {
+        "RuleAction": "ACCEPT",
+        "Priority": "HIGH",
+        "Protocol": "TCP",
+        "DstPort": "1",
+        "SrcIP": "0.0.0.0/0"
+      }
+    ],
+    "expect_code": 0
+  }
+}
