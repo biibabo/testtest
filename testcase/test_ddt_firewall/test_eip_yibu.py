@@ -1,4 +1,3 @@
-import time
 import unittest
 
 from ddt import ddt, file_data
@@ -38,15 +37,11 @@ class TestEip(BaseCase):
             'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/network/eip',
             'Origin': 'https://cmp-fe.ucloud.cn',
             'Cookie': self.cookie}
-        count = 1
-        while True: #无限循环
+        while True:
             r = self.request(method="post", url=url, json=data, headers=header)  # 请求查询结果接口
-            print(count, r.json()['Data']['Status'])
-            if r.json()['Data']['Status'] == 1:  # 如果有数据则退出循环
+            print(r.json()['Data']['Status'])
+            if r.json()['Data']['Status'] == 1:  # 判断eip的状态是否为1
                 print('创建成功')
                 break
-            count += 1
-        else:
-            return None
-        return r.json()
+
 

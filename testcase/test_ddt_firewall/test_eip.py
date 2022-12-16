@@ -9,9 +9,6 @@ from core.basecase import BaseCase
 class TestEip(BaseCase):
     global resourceid
 
-    @classmethod
-    def setUpClass(cls) -> None:
-        print('¿ªÊ¼')
 
     @file_data("../../testdata/test_eip/test_eip_ucloud.json")
     def test_createucloudeip(self, EIPInstance, expect_code):
@@ -59,6 +56,3 @@ class TestEip(BaseCase):
         r = self.request(method="post", url=url, json=data, headers=header)
         print(r.json())
 
-    @classmethod
-    def tearDownClass(cls) -> None:
-        print('½áÊø')
