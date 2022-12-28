@@ -1,5 +1,9 @@
-import unittest
+# -*- coding: UTF-8 -*-
+import logging
+import time
 
+import polling as polling
+import requests
 from ddt import ddt, file_data
 
 from core.basecase import BaseCase
@@ -10,7 +14,7 @@ class TestEip(BaseCase):
     global resourceid
 
     @file_data("../../testdata/test_eip/test_eip_ucloud.json")
-    def test_createucloudeip(self, EIPInstance, expect_code):
+    def test_01_createucloudeip(self, EIPInstance, expect_code):
         global resourceid
         url = "https://cmp-fe.ucloud.cn/api/gateway?Action=CreateEIP"
         data = {"OrgId": 1,
@@ -29,22 +33,65 @@ class TestEip(BaseCase):
         # print(r.json())
         self.assertEqual(expect_code, r.json()['RetCode'])
         resourceid = r.json()["Data"]["ResourceId"]
+        print(resourceid, 'resourceid=====')
 
-    # ��ȡ��Դ״̬
+    #
+    # def susscec(self, data):
+    #     print(data, '=======')
+    #     default = {}
+    #     v = data.get('Status', default)
+    #     if v == default:
+    #         return False
+    #     if v == 1:
+    #         return True
+    #     return False
 
-    def test_eip_status(self):
+
+    # 获取资源状态
+    # def test_03_eip_status(self):
+    #     url = "https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail"
+    #     data = {"cmpUuid": resourceid, "ResourceType": "eip"}
+    #     header = {
+    #         'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/network/eip',
+    #         'Origin': 'https://cmp-fe.ucloud.cn',
+    #         'Cookie': self.cookie}
+    #     r = self.request(method="post", url=url, json=data, headers=header)
+    #     print(r.json(), 'r.json()["Data"]=====')
+    #
+    #     # logging.INFO(r.json()["Data"], 'r.json()["Data"]')
+    #     polling.poll(
+    #         # lambda: r.json()["Data"]["Status"] == 1,
+    #         lambda: self.susscec(r.json()["Data"]),
+    #         step=1,
+    #         ignore_exceptions=(requests.exceptions.ConnectionError,),
+    #         poll_forever=True)
+
+    def test_02_eip_status(self):
         url = "https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail"
         data = {"cmpUuid": resourceid, "ResourceType": "eip"}
         header = {
             'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/network/eip',
             'Origin': 'https://cmp-fe.ucloud.cn',
             'Cookie': self.cookie}
-        r = self.request(method="post", url=url, json=data, headers=header)
-        status = r.json()["Data"]["Status"]
-        self.assertEqual(1, status)
-        print(r.json())
+        startTime = time.time()
+        while True:
+            r = self.request(method="post", url=url, json=data, headers=header)
+            if r.json()["Data"] == {} or r.json()["Data"]["Status"] != 1:
+                continue
+            elif r.json()["Data"]["Status"] == 1:
+                break
+            else:
+                pass
+            time.sleep(2)
+            endTime = time.time()
+            if endTime - startTime > 60:
+                raise Exception("在60s内查询结果失败")
 
-    def test_delucloudeip(self):
+        Status=r.json()["Data"]["Status"]
+        self.assertEqual(1, Status)
+    #     print(r.json())
+
+    def test_04_delucloudeip(self):
         url = "https://cmp-fe.ucloud.cn/api/gateway?Action=DeleteEIP"
         data = {"ResourceIds": [resourceid]}
         header = {
