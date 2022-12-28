@@ -13,6 +13,7 @@ from core.basecase import BaseCase
 class TestEip(BaseCase):
     global resourceid
 
+
     @file_data("../../testdata/test_eip/test_eip_ucloud.json")
     def test_01_createucloudeip(self, EIPInstance, expect_code):
         global resourceid
@@ -101,3 +102,4 @@ class TestEip(BaseCase):
 
         r = self.request(method="post", url=url, json=data, headers=header)
         print(r.json())
+

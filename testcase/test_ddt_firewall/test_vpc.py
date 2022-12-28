@@ -57,4 +57,7 @@ class TestVPC(BaseCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    suit = unittest.TestSuite()
+    suit.addTest(TestVPC("test_01_createucloudvpc_1_vpc1"))
+    run = unittest.TextTestRunner()
+    run.run(suit)
