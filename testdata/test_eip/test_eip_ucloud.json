@@ -8,5 +8,14 @@
               "Region": "cn-bj2"
               },
     "expect_code": 0
-          }
+          },
+
+  "modifyeip": {
+    "EIPInstances":[{"Bandwidth":2,
+                  "AccountId":2,
+                  "Platform":"ucloud",
+                  "ProjectId":"org-uzao3s",
+                  "Region":"cn-sh2"}
+  ]}
+
 }
