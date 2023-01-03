@@ -28,6 +28,5 @@ class TestDisk(BaseCase):
         r = self.request(method="post", url=url, json=data, headers=header)
         self.assertEqual(expect_code, r.json()['RetCode'])
 
-
 if __name__ == '__main__':
     unittest.main()
