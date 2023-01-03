@@ -1,0 +1,50 @@
+{
+  "disk1": {
+    "OrgId": 359,
+    "Name": "二级组织-1",
+    "expect_code": 0
+  },
+
+  "disk2": {
+    "OrgId": 363,
+    "Name": "三级组织-1",
+    "expect_code": 0
+  },
+
+  "disk3": {
+    "OrgId": 365,
+    "Name": "四级组织-1",
+    "expect_code": 0
+  },
+
+  "disk5": {
+    "OrgId": 360,
+    "Name": "二级组织-2",
+    "expect_code": 0
+  },
+  "disk6": {
+    "OrgId": 362,
+    "Name": "三级组织-2",
+    "expect_code": 0
+  },
+  "disk7": {
+    "OrgId": 366,
+    "Name": "四级组织-2",
+    "expect_code": 0
+  },
+  "disk8": {
+    "OrgId": 361,
+    "Name": "二级组织-3",
+    "expect_code": 0
+  },
+  "disk9": {
+    "OrgId": 364,
+    "Name": "三级组织-3",
+    "expect_code": 0
+  },
+  "disk10": {
+    "OrgId": 367,
+    "Name": "四级组织-3",
+    "expect_code": 0
+  }
+}
