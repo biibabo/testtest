@@ -1,0 +1,198 @@
+{
+  "rule1": {
+    "Name": "firewallopenstack-01",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "0",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule2": {
+    "Name": "firewallopenstack-02",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "1",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule3": {
+    "Name": "firewallopenstack-03",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "22",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule4": {
+    "Name": "firewallopenstack-04",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "8080",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule5": {
+    "Name": "firewallopenstack-05",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "65535",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule6": {
+    "Name": "firewallopenstack-06",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "65536",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule7": {
+    "Name": "firewallopenstack-07",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "cuowude",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule8": {
+    "Name": "firewallopenstack-08",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "udp",
+        "Ethertype": "IPv4",
+        "DstPort": "8080",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }]
+},
+  "rule9": {
+    "Name": "firewallopenstack-09",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "icmp",
+        "Ethertype": "IPv4",
+        "DstPort": "8080",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      },
+       {
+        "GressType": "ingress",
+        "Protocol": "-1",
+        "Ethertype": "IPv4",
+        "DstPort": "8080",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      }
+    ]
+},
+  "rule10": {
+    "Name": "firewallopenstack-10",
+    "expect_code": 0,
+    "Rules": [
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "8080",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      },
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv4",
+        "DstPort": "8080-9090",
+        "SrcIP": "0.0.0.0/0",
+        "Priority": "",
+        "RuleAction": ""
+      },
+      {
+        "GressType": "ingress",
+        "Protocol": "tcp",
+        "Ethertype": "IPv6",
+        "DstPort": "8080-9090",
+        "SrcIP": "::0000:0000",
+        "Priority": "",
+        "RuleAction": ""
+      },
+      {
+        "GressType": "ingress",
+        "Protocol": "udp",
+        "Ethertype": "IPv6",
+        "DstPort": "8080-9090",
+        "SrcIP": "::0000:0000",
+        "Priority": "",
+        "RuleAction": ""
+      },
+      {
+        "GressType": "ingress",
+        "Protocol": "icmp",
+        "Ethertype": "IPv6",
+        "DstPort": "",
+        "SrcIP": "::0000:0000",
+        "Priority": "",
+        "RuleAction": ""
+      },
+      {
+        "GressType": "ingress",
+        "Protocol": "-1",
+        "Ethertype": "IPv6",
+        "DstPort": "",
+        "SrcIP": "::0000:0000",
+        "Priority": "",
+        "RuleAction": ""
+      }
+    ]
+}
+}
