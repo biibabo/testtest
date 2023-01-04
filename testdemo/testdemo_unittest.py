@@ -1,7 +1,9 @@
 import unittest
 
+from core.basecase import BaseCase
 
-class Test1(unittest.TestCase):
+
+class Test1(BaseCase):
     def test01(self):
         print('test01')
 
