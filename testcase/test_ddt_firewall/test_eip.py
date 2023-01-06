@@ -1,9 +1,5 @@
 # -*- coding: UTF-8 -*-
-import logging
 import time
-
-import polling as polling
-import requests
 from ddt import ddt, file_data
 
 from core.basecase import BaseCase
@@ -34,33 +30,6 @@ class TestEip(BaseCase):
         self.assertEqual(expect_code, r.json()['RetCode'])
         resourceid = r.json()["Data"]["ResourceId"]
         print(resourceid, 'resourceid=====')
-
-    #
-    # def susscec(self, data):
-    #     print(data, '=======')
-    #     default = {}
-    #     v = data.get('Status', default)
-    #     if v == default:
-    #         return False
-    #     if v == 1:
-    #         return True
-    #     return False
-
-    # # 获取资源状态
-    # def test_02_eip_status(self):
-    #     url = "https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail"
-    #     data = {"cmpUuid": resourceid, "ResourceType": "eip"}
-    #     header = {
-    #         'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/network/eip',
-    #         'Origin': 'https://cmp-fe.ucloud.cn',
-    #         'Cookie': self.cookie}
-    #     r = self.request(method="post", url=url, json=data, headers=header)
-    #     polling.poll(
-    #         lambda: r.json()["Data"] != {},
-    #         #         lambda: self.susscec(r.json()["Data"]),
-    #         step=1,
-    #         ignore_exceptions=(requests.exceptions.ConnectionError,),
-    #         poll_forever=True)
 
     def test_02_eip_status(self):
         url = "https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail"

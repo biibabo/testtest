@@ -5,7 +5,8 @@ import time
 import polling as polling
 import requests
 from ddt import ddt, file_data
-
+import unittest
+from BeautifulReport import BeautifulReport
 from core.basecase import BaseCase
 
 
@@ -166,6 +167,32 @@ class TestCreatevm(BaseCase):
     def test_08_GetResourceDetail(self):
         pass
     # 改配
+
+
 # 重置密码
 # 制作镜像
 # 删除云主机
+# def suite():
+#     # 创建一个测试套件
+#     suite = unittest.TestSuite()
+#     # 将测试用例加载到测试套件中
+#     loader = unittest.TestLoader()  # 创建一个用例加载对象
+#     suite.addTest(loader.loadTestsFromTestCase(TestCreatevm))
+#     return suite
+#
+# if __name__ == '__main__':
+#     br = BeautifulReport(suite())
+#     br.report(filename='test_vm_ucloud.html', description='ucloud_vm_测试报告', log_path='.', report_dir='.',
+#               theme='theme_memories')
+
+if __name__ == '__main__':
+    # 创建类加载的对象
+    load = unittest.TestLoader()
+    # 将测试类加载到测试套件中
+    suit1 = load.loadTestsFromTestCase(TestCreatevm)
+    # 指定执行类中的一个方法或者整个类
+    suits = unittest.TestSuite([TestCreatevm("test_06_GetResourceDetail")])
+    # suits = unittest.TestSuite([suit1])
+    report = BeautifulReport(suits)
+    report.report(filename='test_vm_ucloud1.html', description='ucloud_vm_测试报告', log_path='.', report_dir='.',
+                  theme='theme_memories')
