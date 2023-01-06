@@ -26,7 +26,7 @@ class TestCreatevm(BaseCase):
             "VMInstances": [
                 {
                     "Id": 1672803465100,
-                    "Name": "UHost---",
+                    "Name": "UHost-new-11",
                     "Count": 1,
                     "RegionEn": "cn-sh2",
                     "ZoneEn": "cn-sh2-01",
@@ -131,7 +131,25 @@ class TestCreatevm(BaseCase):
 
     # 获取云主机状态（已关机）
     def test_04_GetResourceDetail(self):
-        pass
+        cmpUuids = globals()['cmpUuids']
+        cmpUuid = ''.join(cmpUuids)
+        url = 'https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail'
+        data = {"cmpUuid": cmpUuid, "ResourceType": "vm"}
+        header = {
+            'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/vm',
+            'Origin': 'https://cmp-fe.ucloud.cn',
+            'Cookie': self.cookie}
+        while True:
+            r = self.request(method="post", url=url, json=data, headers=header)
+            if r.json()['Data']['Status'] != 4:
+                continue
+            elif r.json()['Data']['Status'] == 4:
+                break
+            else:
+                print('查询异常')
+        self.assertEqual(0, r.json()['RetCode'])
+        self.assertEqual(4, r.json()['Data']['Status'])
+        print(r.json()['Data']['Status'])
 
     # 开机
     def test_05_StartVM(self):
@@ -148,7 +166,25 @@ class TestCreatevm(BaseCase):
 
     # 获取云主机状态（运行中）
     def test_06_GetResourceDetail(self):
-        pass
+        cmpUuids = globals()['cmpUuids']
+        cmpUuid = ''.join(cmpUuids)
+        url = 'https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail'
+        data = {"cmpUuid": cmpUuid, "ResourceType": "vm"}
+        header = {
+            'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/vm',
+            'Origin': 'https://cmp-fe.ucloud.cn',
+            'Cookie': self.cookie}
+        while True:
+            r = self.request(method="post", url=url, json=data, headers=header)
+            if r.json()['Data']['Status'] != 2:
+                continue
+            elif r.json()['Data']['Status'] == 2:
+                break
+            else:
+                print('查询异常')
+        self.assertEqual(0, r.json()['RetCode'])
+        self.assertEqual(2, r.json()['Data']['Status'])
+        print(r.json()['Data']['Status'])
 
     # 重启
     def test_07_RebootVM(self):
@@ -165,7 +201,25 @@ class TestCreatevm(BaseCase):
 
     # 获取云主机状态（运行中）
     def test_08_GetResourceDetail(self):
-        pass
+        cmpUuids = globals()['cmpUuids']
+        cmpUuid = ''.join(cmpUuids)
+        url = 'https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail'
+        data = {"cmpUuid": cmpUuid, "ResourceType": "vm"}
+        header = {
+            'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/vm',
+            'Origin': 'https://cmp-fe.ucloud.cn',
+            'Cookie': self.cookie}
+        while True:
+            r = self.request(method="post", url=url, json=data, headers=header)
+            if r.json()['Data']['Status'] != 2:
+                continue
+            elif r.json()['Data']['Status'] == 2:
+                break
+            else:
+                print('查询异常')
+        self.assertEqual(0, r.json()['RetCode'])
+        self.assertEqual(2, r.json()['Data']['Status'])
+        print(r.json()['Data']['Status'])
     # 改配
 
 
@@ -191,8 +245,8 @@ if __name__ == '__main__':
     # 将测试类加载到测试套件中
     suit1 = load.loadTestsFromTestCase(TestCreatevm)
     # 指定执行类中的一个方法或者整个类
-    suits = unittest.TestSuite([TestCreatevm("test_06_GetResourceDetail")])
-    # suits = unittest.TestSuite([suit1])
+    # suits = unittest.TestSuite([TestCreatevm("test_06_GetResourceDetail")])
+    suits = unittest.TestSuite([suit1])
     report = BeautifulReport(suits)
     report.report(filename='test_vm_ucloud1.html', description='ucloud_vm_测试报告', log_path='.', report_dir='.',
                   theme='theme_memories')
