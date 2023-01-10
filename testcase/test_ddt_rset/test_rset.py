@@ -47,6 +47,8 @@ class TestRSet(BaseCase):
         globals()['RSetId'] = RSetId
         print('资源集id为：', globals()['RSetId'])
         time.sleep(5)
+        return "hahaha"
+
 
     def test_03_DeleteRSet(self):
         RSetId = globals()['RSetId']

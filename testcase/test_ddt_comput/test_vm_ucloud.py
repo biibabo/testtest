@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import logging
 import time
+import uuid
 
 import polling as polling
 import requests
@@ -15,6 +16,8 @@ class TestCreatevm(BaseCase):
     # @file_data("../../testdata/test_vm/test_vm_ucloud.json")
     # 创建ucloud云主机
     def test_01_WorkflowCreateVM(self):
+        Name = uuid.uuid4()
+        Name = str(Name)
         # global SerialNum
         url = "https://cmp-fe.ucloud.cn/api/gateway?Action=WorkflowCreateVM"
         data = {
@@ -26,11 +29,11 @@ class TestCreatevm(BaseCase):
             "VMInstances": [
                 {
                     "Id": 1672803465100,
-                    "Name": "UHost-new-11",
+                    "Name": Name,
                     "Count": 1,
                     "RegionEn": "cn-sh2",
                     "ZoneEn": "cn-sh2-01",
-                    "MachineType": "OM",
+                    "MachineType": "O",
                     "GPUType": "",
                     "CPUPlatform": "Intel/Auto",
                     "GPU": 0,
@@ -42,7 +45,7 @@ class TestCreatevm(BaseCase):
                         "Id": "66689fd4-65de-4064-9f17-d8d6123da2bd",
                         "Disk": 0,
                         "RAM": 2048,
-                        "Name": "快杰共享型",
+                        "Name": "快杰O型",
                         "VCPUs": 1,
                         "CPUName": "",
                         "MaxDataDiskCount": 0,
@@ -118,9 +121,9 @@ class TestCreatevm(BaseCase):
 
     # 关机
     def test_03_StopVM(self):
-        cmpUuids = globals()['cmpUuids']
+        # cmpUuids = globals()['cmpUuids']
         url = "https://cmp-fe.ucloud.cn/api/gateway?Action=StopVM"
-        data = {"ResourceIds": cmpUuids}
+        data = {"ResourceIds": "2.ucloud.uhost-e1a517baqhu"}
         header = {
             'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/vm',
             'Origin': 'https://cmp-fe.ucloud.cn',
@@ -131,10 +134,10 @@ class TestCreatevm(BaseCase):
 
     # 获取云主机状态（已关机）
     def test_04_GetResourceDetail(self):
-        cmpUuids = globals()['cmpUuids']
-        cmpUuid = ''.join(cmpUuids)
+        # cmpUuids = globals()['cmpUuids']
+        # cmpUuid = ''.join(cmpUuids)
         url = 'https://cmp-fe.ucloud.cn/api/gateway?Action=GetResourceDetail'
-        data = {"cmpUuid": cmpUuid, "ResourceType": "vm"}
+        data = {"cmpUuid": "2.ucloud.uhost-e1a517baqhu", "ResourceType": "vm"}
         header = {
             'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/vm',
             'Origin': 'https://cmp-fe.ucloud.cn',
@@ -149,7 +152,14 @@ class TestCreatevm(BaseCase):
                 print('查询异常')
         self.assertEqual(0, r.json()['RetCode'])
         self.assertEqual(4, r.json()['Data']['Status'])
-        print(r.json()['Data']['Status'])
+        self.Status = r.json()['Data']['Status']
+        self.DiskcResourceId = r.json()['Data']['DiskDetails'][0]['ResourceId']
+        self.DiskUsage = r.json()['Data']['DiskDetails'][0]['DiskUsage']
+        print('磁盘类型：', self.DiskUsage,'DiskcResourceId：',self.DiskcResourceId)
+        self.DiskcResourceId = r.json()['Data']['DiskDetails'][1]['ResourceId']
+        self.DiskUsage = r.json()['Data']['DiskDetails'][1]['DiskUsage']
+        print('磁盘类型：', self.DiskUsage, 'DiskcResourceId：', self.DiskcResourceId)
+        print(self.Status)
 
     # 开机
     def test_05_StartVM(self):
@@ -220,7 +230,49 @@ class TestCreatevm(BaseCase):
         self.assertEqual(0, r.json()['RetCode'])
         self.assertEqual(2, r.json()['Data']['Status'])
         print(r.json()['Data']['Status'])
+
     # 改配
+    def test_09_ChangeVMConfig(self):
+        # 4关机，2运行中
+        self.test_04_GetResourceDetail()
+        Status = self.Status
+        if Status == 4:
+            # cmpUuids = globals()['cmpUuids']
+            # cmpUuid = ''.join(cmpUuids)
+            url = "https://cmp-fe.ucloud.cn/api/gateway?Action=ChangeVMConfig"
+            data = {"AccountId":2,
+                    "Platform":"ucloud",
+                    "ProjectId":"org-uzao3s",
+                    "RegionEn":"cn-sh2",
+                    "cmpUuid":"2.ucloud.uhost-e1a517baqhu",
+                    "CPU":2,
+                    "Memory":4,
+                    "Disks":
+                        [{"Id":self.DiskcResourceId,
+                          "Type":26,
+                          "Size":30,
+                          "DiskUsage":"SystemDisk",
+                          "Platform":"ucloud",
+                          "DatastoreResourceId":""},
+                         {"Id":"bsr-e16s4mirflc",
+                          "Type":5,"Size":30,"DiskUsage":"DataDisk","Platform":"ucloud","DatastoreResourceId":""}],
+                    "EIP":[{"Id":"eip-e16s4zk9cn3","Ip":"106.75.240.12","Bandwidth":2,"Type":"Bgp"}]}
+            header = {
+                'Referer': 'https://cmp-fe.ucloud.cn/cloud-fe/resource/vm',
+                'Origin': 'https://cmp-fe.ucloud.cn',
+                'Cookie': self.cookie}
+            r = self.request(method="post", url=url, json=data, headers=header)
+            self.assertEqual(0, r.json()['RetCode'])
+            print(r.json()["Data"]["UpdateDiskRes"][0]['Id'])
+            print(r.json()["Data"]["UpdateDiskRes"][1]['Id'])
+
+        elif Status == 2:
+            self.test_03_StopVM()
+        else:
+            print("此状态暂不支持改配")
+
+
+
 
 
 # 重置密码
@@ -245,8 +297,8 @@ if __name__ == '__main__':
     # 将测试类加载到测试套件中
     suit1 = load.loadTestsFromTestCase(TestCreatevm)
     # 指定执行类中的一个方法或者整个类
-    # suits = unittest.TestSuite([TestCreatevm("test_06_GetResourceDetail")])
-    suits = unittest.TestSuite([suit1])
+    suits = unittest.TestSuite([TestCreatevm("test_04_GetResourceDetail")])
+    # suits = unittest.TestSuite([suit1])
     report = BeautifulReport(suits)
     report.report(filename='test_vm_ucloud1.html', description='ucloud_vm_测试报告', log_path='.', report_dir='.',
                   theme='theme_memories')
